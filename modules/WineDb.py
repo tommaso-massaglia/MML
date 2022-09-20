@@ -41,3 +41,34 @@ class WineDb():
                 a1.set_xticklabels(['white', 'red'])
         
         return f
+    
+    
+    def boxplots_quality(self, df=False):
+        
+        if not isinstance(df, pd.DataFrame):
+            df = self.df
+            
+        f, ax = plt.subplots(3,4, figsize=(20, 14))
+
+        xind,yind = 0, 0
+
+        for colname in df.columns:
+            if colname != 'quality' and colname != 'type':
+                sns.boxplot(df, y=colname, x='quality', palette='tab10', ax = ax[yind,xind])
+                
+                if xind < 3: 
+                    xind+=1
+                else: 
+                    xind=0
+                    yind+=1    
+                    
+            elif colname == 'type':
+                sns.boxplot(df, y='quality', x='type', palette='tab10', ax = ax[yind,xind])
+                
+                if xind < 3: 
+                    xind+=1
+                else: 
+                    xind=0
+                    yind+=1  
+        
+        return f
