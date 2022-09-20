@@ -41,7 +41,7 @@ class Functions():
         
         return no_out
     
-    # Isolation Forest Classifier
+    # Isolation Forest Classifier for outliers detection
     def isoforest_outliers(df: pd.DataFrame, excluded=False) -> pd.DataFrame:
         if excluded: 
             o_df = df
