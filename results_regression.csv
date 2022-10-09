@@ -1,9 +1,9 @@
 ,name,pipeline,r2_score,mse
 4,LINEAR,isoforest_out,0.291,0.546
 2,LINEAR,zscore_out,0.29,0.514
-6,LINEAR,minmax_norm,0.28,0.54
-8,LINEAR,standard_norm,0.28,0.54
 0,LINEAR,benchmark,0.28,0.54
+8,LINEAR,standard_norm,0.28,0.54
+6,LINEAR,minmax_norm,0.28,0.54
 12,LINEAR,pipeline_1,0.276,0.525
 10,LINEAR,pca,0.275,0.544
 16,LINEAR,pipeline_3,0.275,0.544
