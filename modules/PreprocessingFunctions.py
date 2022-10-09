@@ -22,7 +22,7 @@ class Functions():
             for el in excluded:
                 no_out[el] = o_df[el]
 
-        return no_out
+        return no_out.dropna()
     
     # Inter Quartile Range outliers
     def iqr_outliers(df: pd.DataFrame, excluded=False) -> pd.DataFrame:
@@ -33,13 +33,13 @@ class Functions():
         q1 = df.quantile(0.25)
         q3 = df.quantile(0.75)
         iqr = q3 - q1
-        no_out = df[df>(q1-1.5*iqr)][df<(q3+1.5*iqr)].dropna()
+        no_out = df[~((df<(q1-1.5*iqr)) | (df>(q3+1.5*iqr)))]
 
         if excluded:
             for el in excluded:
                 no_out[el] = o_df[el]
         
-        return no_out
+        return no_out.dropna()
     
     # Isolation Forest Classifier for outliers detection
     def isoforest_outliers(df: pd.DataFrame, excluded=False) -> pd.DataFrame:
@@ -57,7 +57,7 @@ class Functions():
             for el in excluded:
                 no_out[el] = o_df[el]
                 
-        return no_out
+        return no_out.dropna()
     
     # Elliptic Enveloper for gaussian distributed data
     def ellipticenvelope_outliers(df: pd.DataFrame, excluded=False) -> pd.DataFrame:
@@ -75,7 +75,7 @@ class Functions():
             for el in excluded:
                 no_out[el] = o_df[el]
                 
-        return no_out
+        return no_out.dropna()
     
     # MinMax Normalization
     def minmax_norm(df: pd.DataFrame, excluded=False) -> pd.DataFrame:
@@ -89,7 +89,7 @@ class Functions():
             for el in excluded:
                 normdf[el] = o_df[el]
                 
-        return normdf
+        return normdf.dropna()
     
     # Standard Normalization
     def standard_norm(df: pd.DataFrame, excluded=False) -> pd.DataFrame:
@@ -103,7 +103,7 @@ class Functions():
             for el in excluded:
                 normdf[el] = o_df[el]
                 
-        return normdf
+        return normdf.dropna()
     
     # One Hot Encoder for categorical features
     def one_hot_encode(df:pd.DataFrame, target_col) -> pd.DataFrame:
@@ -124,18 +124,18 @@ class Functions():
             for el in excluded:
                 df[el] = o_df[el]
                 
-        return df
+        return df.dropna()
     
     # Synthetic Minority Over Sampling 
     def smote(df:pd.DataFrame, target_col='type') -> pd.DataFrame:
         x, y = df.loc[:, df.columns != target_col], df[target_col]
         smoted = SMOTE().fit_resample(x, y)
         
-        return pd.concat(smoted, axis=1)
+        return pd.concat(smoted, axis=1).dropna()
     
     # Random Undersampling
     def random_undersample(df:pd.DataFrame, target_col='type') -> pd.DataFrame:
         x, y = df.loc[:, df.columns != target_col], df[target_col]
         smoted = RandomUnderSampler().fit_resample(x, y)
         
-        return pd.concat(smoted, axis=1)
+        return pd.concat(smoted, axis=1).dropna()

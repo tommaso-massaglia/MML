@@ -7,7 +7,7 @@ class WineDb():
         self.df_red = pd.read_csv('modules/winequality-red.csv', sep=';')
         self.df_white = pd.read_csv('modules/winequality-white.csv', sep=';')
         self.df_red['type'] = 1
-        self.df_white['type'] = -1
+        self.df_white['type'] = 0
         self.df = pd.concat([self.df_red, self.df_white], ignore_index=True)
         
     def __call__(self, type = 'both') -> pd.DataFrame:
